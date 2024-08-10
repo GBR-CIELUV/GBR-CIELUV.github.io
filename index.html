@@ -121,7 +121,16 @@
 <hr>
 <p>在输入命令后，第一次启动会报错。显示<code>You need to agree the EULA in order to run the server. Go to eula.txt for more info.</code>  </p>
 <p>我们需要同意协议才能启动服务端，此时文件架会多出来几个文件。我们编辑其中的eula.txt文件，把最后一行的<code>eula=false</code>改成<code>eula=true</code>就可以了。然后再次运行命令就可以启动服务端了。</p>
-<h1 id="客户端进入服务器"><a href="#客户端进入服务器" class="headerlink" title="客户端进入服务器"></a>客户端进入服务器</h1><p>进入游戏后，在多人游戏的服务器地址中输入localhost即可进入服务器。</p>
+<h1 id="客户端进入服务器"><a href="#客户端进入服务器" class="headerlink" title="客户端进入服务器"></a>客户端进入服务器</h1><p>进入游戏后，在多人游戏的服务器地址中输入localhost即可进入服务器。局域网内的人可以使用[你运行服务端的机器的ip地址]:25565来进入服务器，但局域网外的人因为一些<strong>众所周知</strong>的原因而不能直接连接，所以我们需要配置端口转发或者内网穿透。在这里，我们使用内网穿透来将内网服务暴露到外网。</p>
+<h2 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h2><p>常见的内网穿透技术，如Frp、Nps，都要求用户具有一台有公网ip的服务器。但大多数人都没有一台含公网ip的服务器，所以我们要使用提供一站式的内网穿透工具。  </p>
+<p>常见的不需要我们配置服务端的内网穿透的工具有：ngrok、sunny-ngrok、natapp、sakurafrp等。  </p>
+<p>由于其他的都需要进行实名验证，而我只是一个苦逼准高中生，所以我们使用natapp，natapp的实名验证只需要满16岁。（本人在验证时没有满16岁，所以我怀疑natapp的实名验证只需要核对名字与身份证号码，而没有年龄限制，也没有刷脸）  </p>
+<p>进入<a target="_blank" rel="noopener" href="https://natapp.cn/">natapp官网</a>后，注册登陆帐号后完成实名验证，获取一个免费的隧道。协议使用TCP协议，本地端口填25565。获取隧道后在我的隧道页面中配置我们获取的隧道，复制隧道的authtoken</p>
+<p>我们需要下载它的客户端，点击客户端下载，选择相应的系统并下载，解压缩。解压缩后会出现一个natapp文件，这个就是客户端。我们在此文件架内打开终端并输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./natapp -authtoken=[你复制的隧道authtoken]</span><br></pre></td></tr></table></figure>
+
+<p>执行后即可进行内网穿透。此时终端界面Forwarding后面的<code>tcp://server.natappfree.cc:[端口号]</code>就是公网可以访问的地址。此时本机的<code>127.0.0.1:25565</code>上的服务（25565端口即Minecraft服务端开放的端口）已经被穿透到了此地址。  </p>
+<p>此时我们在Minecraft的服务器地址内输入<code>server.natappfree.cc:[端口号]</code>即可加入服务器。</p>
 
       
     </div>
